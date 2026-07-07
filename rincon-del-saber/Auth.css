@@ -1,0 +1,134 @@
+/* ==========================================================================
+   auth.css
+   Estilos exclusivos de Login.html y Registro.html.
+   Se carga DESPUÉS de style.css y detalle.css: reutiliza .modal__campo
+   (campos de formulario) y .boton-reservar (botón verde) que ya existen
+   en detalle.css, así no se duplica CSS.
+   ========================================================================== */
+
+/* En estas dos pantallas no hay navegación inferior, así que no
+   necesitamos el padding que le reserva lugar en el resto del sitio.
+   Además la pantalla entra entera en el visor y no se puede desplazar,
+   igual que .aplicacion--detalle en detalle.css. */
+.aplicacion--auth {
+    padding-bottom: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.aplicacion--auth .encabezado-detalle,
+.aplicacion--auth .auth-logo,
+.aplicacion--auth .auth-mensaje {
+    flex: 0 0 auto;
+}
+
+.auth-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 36px 20px 8px;
+    text-align: center;
+}
+
+.auth-logo svg {
+    width: 40px;
+    height: 40px;
+    stroke: var(--verde);
+    stroke-width: 2.4;
+}
+
+.auth-logo svg circle {
+    fill: var(--verde);
+    stroke: none;
+}
+
+.auth-logo h1 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--texto);
+    margin: 4px 0 0;
+}
+
+.auth-logo p {
+    font-size: 13px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+/* Mensajes de error / aviso que llegan desde login.php o registro.php
+   por query string (?error=... / ?registrado=1) */
+.auth-mensaje {
+    margin: 4px 20px 0;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.auth-mensaje--error {
+    background: rgba(201, 129, 47, 0.14);
+    color: var(--naranja);
+}
+
+.auth-mensaje--exito {
+    background: rgba(63, 107, 59, 0.12);
+    color: var(--verde);
+}
+
+.auth-formulario {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px 0;
+}
+
+.aplicacion--auth .auth-alterno {
+    flex: 0 0 auto;
+}
+
+/* .modal__campo ya trae el label + input estilados desde detalle.css;
+   acá solo ajustamos el espaciado para que se vea bien fuera del modal. */
+.auth-formulario .modal__campo {
+    margin: 0 0 14px;
+}
+
+.auth-formulario .boton-reservar {
+    margin-top: 6px;
+}
+
+.auth-campo-doble {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-campo-doble .modal__campo {
+    flex: 1;
+}
+
+.auth-ayuda {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    margin: 0 0 16px;
+}
+
+.auth-alterno {
+    text-align: center;
+    font-size: 12px;
+    color: var(--texto-muted);
+    padding: 18px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
+.auth-alterno a {
+    color: var(--verde);
+    font-weight: 700;
+}

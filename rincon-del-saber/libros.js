@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Datos de los libros del catálogo.
+   Cada clave es el "slug" que se usa en la URL: detalle.html?libro=slug
+   Editá o sumá libros acá; detalle.html los lee automáticamente.
+   ========================================================================== */
+var LIBROS = {
+  "el-principito": {
+    titulo: "El principito",
+    autor: "Antoine de Saint-Exupéry",
+    estado: "disponible",
+    ejemplares: 4,
+    portada: "imagenes/el-principito.jpg",
+    valoracion: 4.8,
+    resenas: "2k",
+    diasDevolucion: 5,
+    idioma: "ESPAÑOL",
+    editorial: "Salamandra",
+    publicado: 1943,
+    paginas: 96,
+    descripcion: "El principito de Antoine de Saint-Exupéry narra el encuentro entre un aviador varado en el desierto y un pequeño príncipe que viene de otro planeta. A través de sus preguntas y viajes, la historia reflexiona sobre la amistad, el amor y lo esencial que solo se ve con el corazón."
+  },
+  "1984": {
+    titulo: "1984",
+    autor: "George Orwell",
+    estado: "prestado",
+    ejemplares: 2,
+    portada: "imagenes/1984.jpg",
+    valoracion: 4.7,
+    resenas: "3.4k",
+    diasDevolucion: 12,
+    idioma: "ESPAÑOL",
+    editorial: "Debolsillo",
+    publicado: 1949,
+    paginas: 328,
+    descripcion: "1984 de George Orwell describe una sociedad totalitaria vigilada por el Gran Hermano, donde el pensamiento y el lenguaje están controlados. Winston Smith, el protagonista, cuestiona el sistema mientras el régimen intenta borrar cualquier forma de disidencia."
+  },
+  "orgullo-y-prejuicio": {
+    titulo: "Orgullo y prejuicio",
+    autor: "Jane Austen",
+    estado: "disponible",
+    ejemplares: 3,
+    portada: "imagenes/orgullo-y-prejuicio.jpg",
+    valoracion: 4.6,
+    resenas: "1.8k",
+    diasDevolucion: 7,
+    idioma: "ESPAÑOL",
+    editorial: "Alianza Editorial",
+    publicado: 1813,
+    paginas: 432,
+    descripcion: "Orgullo y prejuicio sigue a Elizabeth Bennet y sus hermanas en la Inglaterra rural, donde el matrimonio, la clase social y los primeros juicios marcan sus relaciones. La novela de Jane Austen combina ironía y romance para retratar las costumbres de su época."
+  },
+  "red-eyes": {
+    titulo: "Red Eyes",
+    autor: "Mara Voss",
+    estado: "disponible",
+    ejemplares: 5,
+    portada: "imagenes/red-eyes.jpg",
+    valoracion: 4.3,
+    resenas: "540",
+    diasDevolucion: 6,
+    idioma: "ENGLISH",
+    editorial: "HarperCollins",
+    publicado: 2023,
+    paginas: 288,
+    descripcion: "Red Eyes de Mara Voss sigue a una investigadora que persigue una serie de desapariciones en una ciudad costera. A medida que las pistas se acumulan, descubre que el verdadero peligro está más cerca de lo que imaginaba."
+  },
+  "walk-into-the-shadow": {
+    titulo: "Walk into the Shadow",
+    autor: "Theo Bramwell",
+    estado: "disponible",
+    ejemplares: 3,
+    portada: "imagenes/walk-into-the-shadow.jpg",
+    valoracion: 4.2,
+    resenas: "410",
+    diasDevolucion: 9,
+    idioma: "ENGLISH",
+    editorial: "Orbit Books",
+    publicado: 2021,
+    paginas: 356,
+    descripcion: "Walk into the Shadow de Theo Bramwell mezcla fantasía y misterio en un mundo donde las sombras guardan recuerdos ajenos. Su protagonista aprende a leerlas para resolver un crimen que nadie más puede ver."
+  },
+  "what-is-ai": {
+    titulo: "What is AI",
+    autor: "Renee Cole",
+    estado: "prestado",
+    ejemplares: 1,
+    portada: "imagenes/what-is-ai.jpg",
+    valoracion: 4.5,
+    resenas: "980",
+    diasDevolucion: 3,
+    idioma: "ENGLISH",
+    editorial: "MIT Press",
+    publicado: 2023,
+    paginas: 214,
+    descripcion: "What is AI de Renee Cole explica de forma accesible los fundamentos de la inteligencia artificial: cómo aprenden las máquinas, qué problemas pueden resolver y qué límites e implicancias éticas trae su uso cotidiano."
+  },
+  "dawn-of-tomorrow": {
+    titulo: "Dawn of Tomorrow",
+    autor: "Delilah K. May",
+    estado: "disponible",
+    ejemplares: 4,
+    portada: "imagenes/dawn-of-tomorrow.jpg",
+    valoracion: 4.4,
+    resenas: "1k",
+    diasDevolucion: 8,
+    idioma: "ENGLISH",
+    editorial: "Atria Books",
+    publicado: 2022,
+    paginas: 251,
+    descripcion: "The Dawn of Tomorrow de Delilah K. May es una novela que explora las luchas y aspiraciones de dos hermanas a principios del siglo XX. Ambientada en Estados Unidos, sigue su viaje entre sueños, desafíos sociales y roles de género tradicionales."
+  },
+  "sapiens": {
+    titulo: "Sapiens",
+    autor: "Yuval Noah Harari",
+    estado: "disponible",
+    ejemplares: 6,
+    portada: "imagenes/sapiens.jpg",
+    valoracion: 4.7,
+    resenas: "5.2k",
+    diasDevolucion: 10,
+    idioma: "ESPAÑOL",
+    editorial: "Debate",
+    publicado: 2011,
+    paginas: 496,
+    descripcion: "Sapiens de Yuval Noah Harari recorre la historia de la humanidad desde la aparición del Homo sapiens hasta la actualidad, explorando cómo el mito, la cooperación y las revoluciones cognitiva, agrícola y científica moldearon nuestro mundo."
+  }
+};

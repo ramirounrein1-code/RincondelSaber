@@ -1,0 +1,215 @@
+/* ==========================================================================
+   perfil.css
+   Estilos exclusivos de la pantalla "Mi perfil".
+   Se carga DESPUÉS de style.css y detalle.css (los complementa).
+   ========================================================================== */
+
+/* La pantalla de perfil entra entera en el visor, igual que
+   .aplicacion--detalle: no se desliza la página completa. Si el
+   contenido no entra, es .perfil-scroll el que se desplaza por
+   dentro, nunca el body. */
+.aplicacion--perfil {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    padding-bottom: 88px;
+    /* mismo espacio que reserva .aplicacion para la navegación inferior */
+}
+
+.perfil-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.perfil-tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px 4px;
+}
+
+.perfil-avatar {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--chip-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 12px;
+}
+
+.perfil-avatar svg {
+    width: 34px;
+    height: 34px;
+    stroke: var(--texto-muted);
+    stroke-width: 1.8;
+}
+
+.perfil-tarjeta__nombre {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.perfil-tarjeta__detalle {
+    font-size: 12px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+.perfil-tarjeta__boton-login {
+    margin-top: 14px;
+    width: auto;
+    padding: 10px 28px;
+}
+
+.perfil-tarjeta__profesor {
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--texto-muted);
+}
+
+.perfil-tarjeta__profesor a {
+    color: var(--verde);
+    font-weight: 700;
+}
+
+/* Reutiliza el layout de fichas de Detalle.css (.detalle-libro__ficha
+   + .ficha-dato) para mostrar la cantidad real de reservas activas y
+   de libros en lista de espera. */
+.perfil-stats {
+    padding: 18px 20px 0;
+}
+
+/* ==========================================================================
+   Menú de opciones
+   ========================================================================== */
+.perfil-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0 0;
+    padding: 0 20px;
+}
+
+.perfil-menu__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: var(--tipografia-texto);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--texto);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.perfil-menu__item svg:first-child {
+    width: 18px;
+    height: 18px;
+    color: var(--verde);
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+.perfil-menu__item span {
+    flex: 1;
+    text-align: left;
+}
+
+.perfil-menu__flecha {
+    width: 16px;
+    height: 16px;
+    color: var(--texto-muted);
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+.perfil-menu__item--peligro svg:first-child {
+    color: var(--naranja);
+}
+
+.perfil-menu__item--peligro span {
+    color: var(--naranja);
+}
+
+/* ==========================================================================
+   Nota aclaratoria al pie
+   ========================================================================== */
+.perfil-nota {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    text-align: center;
+    margin: 18px 30px 0;
+}
+
+/* ==========================================================================
+   Información de la biblioteca
+   ========================================================================== */
+.perfil-biblioteca {
+    padding: 24px 20px 28px;
+}
+
+.perfil-biblioteca__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--texto);
+    margin: 0 0 12px;
+}
+
+.perfil-biblioteca__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.perfil-datos {
+    padding: 16px 20px 0;
+}
+
+.perfil-biblioteca__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #FFFFFF;
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.perfil-biblioteca__item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--verde);
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+.perfil-biblioteca__dato {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.perfil-biblioteca__etiqueta {
+    font-size: 10px;
+    color: var(--texto-muted);
+    margin: 0;
+}

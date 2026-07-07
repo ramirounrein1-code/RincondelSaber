@@ -1,0 +1,229 @@
+/* ==========================================================================
+   Recomendar.css
+   Estilos exclusivos del panel de profesor (Recomendar.php).
+   Se carga DESPUÉS de style.css y detalle.css: reutiliza .modal__campo,
+   .boton-reservar, .reserva-tarjeta y .ficha-dato que ya existen, así
+   no se duplica CSS.
+   ========================================================================== */
+
+.profesor-tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px 4px;
+}
+
+.profesor-tarjeta__nombre {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.profesor-tarjeta__detalle {
+    font-size: 11px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+.profesor-tarjeta__salir {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--naranja);
+}
+
+/* ==========================================================================
+   Formulario "Nueva recomendación"
+   ========================================================================== */
+.recomendar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 20px 4px;
+}
+
+.recomendar-form select {
+    font-family: var(--tipografia-texto);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.recomendar-form select:focus {
+    border-color: var(--verde);
+}
+
+.recomendar-form textarea {
+    font-family: var(--tipografia-texto);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+    resize: vertical;
+    min-height: 64px;
+}
+
+.recomendar-form textarea:focus {
+    border-color: var(--verde);
+}
+
+.recomendar-form .boton-reservar {
+    margin-top: 6px;
+}
+
+.recomendar-mensaje {
+    margin: 4px 20px 0;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.recomendar-mensaje--error {
+    background: rgba(201, 129, 47, 0.14);
+    color: var(--naranja);
+}
+
+.recomendar-mensaje--exito {
+    background: rgba(63, 107, 59, 0.12);
+    color: var(--verde);
+}
+
+/* ==========================================================================
+   Lista de recomendaciones ya hechas por este profesor
+   ========================================================================== */
+.recomendar-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 20px 24px;
+}
+
+.recomendar-lista__vacio {
+    text-align: center;
+    font-size: 13px;
+    color: var(--texto-muted);
+    padding: 30px 10px;
+}
+
+.recomendar-tarjeta {
+    display: flex;
+    gap: 12px;
+    background: #FFFFFF;
+    border: 1px solid var(--linea);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 2px 10px rgba(27, 27, 24, 0.05);
+}
+
+.recomendar-tarjeta__portada {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 86px;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--chip-bg);
+}
+
+.recomendar-tarjeta__portada img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.recomendar-tarjeta__cuerpo {
+    flex: 1;
+    min-width: 0;
+}
+
+.recomendar-tarjeta__cuerpo .boton-detalle {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.recomendar-tarjeta__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.recomendar-tarjeta__curso {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--tipografia-titulo);
+    color: var(--verde);
+    background: rgba(63, 107, 59, 0.12);
+    padding: 4px 9px;
+    border-radius: 20px;
+}
+
+.recomendar-tarjeta__comentario {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    margin: 10px 0 0;
+}
+
+.recomendar-tarjeta__fecha {
+    font-size: 10px;
+    color: var(--texto-muted);
+    margin: 8px 0 0;
+}
+/* ==========================================================================
+   Recomendar.css
+   Estilos exclusivos del panel de profesor (Recomendar.php).
+   Las tarjetas de "Mis recomendaciones" reutilizan directamente
+   .reserva-tarjeta (de Reservas.css) para verse igual que las tarjetas
+   de "Mis reservas" del alumno; acá solo van los estilos propios de
+   esta pantalla que no existen en otro lado.
+   ========================================================================== */
+
+.profesor-tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px 4px;
+}
+
+.profesor-tarjeta__nombre {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.profesor-tarjeta__detalle {
+    font-size: 11px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+.profesor-tarjeta__salir {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--naranja);
+}
