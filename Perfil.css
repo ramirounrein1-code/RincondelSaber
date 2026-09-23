@@ -1,0 +1,515 @@
+/* ==========================================================================
+   perfil.css
+   Estilos exclusivos de la pantalla "Mi perfil".
+   Se carga DESPUÉS de style.css y detalle.css (los complementa).
+   ========================================================================== */
+
+/* La pantalla de perfil entra entera en el visor, igual que
+   .aplicacion--detalle: no se desliza la página completa. Si el
+   contenido no entra, es .perfil-scroll el que se desplaza por
+   dentro. overflow-y:auto (en vez de hidden a secas) es una red de
+   seguridad: en el caso normal no cambia nada, pero si algún día el
+   contenido no entra igual, esta pantalla puede scrollear un poco en
+   vez de recortarlo de forma inalcanzable (mismo arreglo que en
+   Detalle.css). */
+.aplicacion--perfil {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    /* mismo espacio que reserva .aplicacion para la navegación inferior */
+}
+
+.perfil-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.perfil-tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px 4px;
+}
+
+.perfil-avatar {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--chip-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 12px;
+}
+
+.perfil-avatar svg {
+    width: 34px;
+    height: 34px;
+    stroke: var(--texto-muted);
+    stroke-width: 1.8;
+}
+
+.perfil-tarjeta__nombre {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.perfil-tarjeta__detalle {
+    font-size: 12px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+.perfil-tarjeta__boton-login {
+    margin-top: 14px;
+    width: auto;
+    padding: 10px 28px;
+}
+
+.perfil-tarjeta__profesor {
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--texto-muted);
+}
+
+.perfil-tarjeta__profesor a {
+    color: var(--verde);
+    font-weight: 700;
+}
+
+/* Reutiliza el layout de fichas de Detalle.css (.detalle-libro__ficha
+   + .ficha-dato) para mostrar la cantidad real de reservas activas y
+   de libros en lista de espera. */
+.perfil-stats {
+    padding: 18px 20px 0;
+}
+
+/* ==========================================================================
+   Menú de opciones
+   ========================================================================== */
+.perfil-menu__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    margin: 24px 0 10px;
+    padding: 0 20px;
+}
+
+.perfil-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0 20px;
+}
+
+.perfil-menu__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: var(--tipografia-texto);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--texto);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, border-color .15s ease;
+}
+
+/* Mismo hover que el ítem "Contacto" de la biblioteca (ver más abajo):
+   se levanta un poco y se resalta en verde, para que en mouse/escritorio
+   quede igual de claro que es clickeable. */
+.perfil-menu__item:hover {
+    border-color: var(--verde);
+    box-shadow: 0 6px 16px rgba(63, 107, 59, 0.12);
+    transform: translateY(-2px);
+}
+
+.perfil-menu__item:hover .perfil-menu__flecha {
+    color: var(--verde);
+    transform: translateX(3px);
+}
+
+/* "Cerrar sesión" ya es naranja de por sí: en vez de ponerse verde
+   como el resto, su hover resalta en su propio color. */
+.perfil-menu__item--peligro:hover {
+    border-color: var(--naranja);
+    box-shadow: 0 6px 16px rgba(201, 129, 47, 0.12);
+}
+
+.perfil-menu__item--peligro:hover .perfil-menu__flecha {
+    color: var(--naranja);
+}
+
+.perfil-menu__item svg:first-child {
+    width: 18px;
+    height: 18px;
+    color: var(--verde);
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+.perfil-menu__item span {
+    flex: 1;
+    text-align: left;
+}
+
+.perfil-menu__flecha {
+    width: 16px;
+    height: 16px;
+    color: var(--texto-muted);
+    stroke-width: 2;
+    flex-shrink: 0;
+    transition: transform .15s ease, color .15s ease;
+}
+
+.perfil-menu__item--peligro svg:first-child {
+    color: var(--naranja);
+}
+
+.perfil-menu__item--peligro span {
+    color: var(--naranja);
+}
+
+/* ==========================================================================
+   Nota aclaratoria al pie
+   ========================================================================== */
+.perfil-nota {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    text-align: center;
+    margin: 18px 30px 0;
+}
+
+/* ==========================================================================
+   Información de la biblioteca
+   ========================================================================== */
+.perfil-biblioteca {
+    padding: 24px 20px 28px;
+}
+
+.perfil-biblioteca__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--texto);
+    margin: 0 0 12px;
+}
+
+.perfil-biblioteca__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.perfil-datos {
+    padding: 16px 20px 0;
+}
+
+.perfil-biblioteca__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #FFFFFF;
+    border: 1px solid var(--linea);
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.perfil-biblioteca__item svg {
+    width: 18px;
+    height: 18px;
+    color: var(--verde);
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+/* Variante clickeable (el ítem "Contacto", que ahora lleva a
+   contacto.php): mismo look que los demás, pero como enlace real, con
+   su flechita a la derecha y un pequeño feedback al tocar. La
+   flechita ("›") se agrega con ::after -en vez de un ícono aparte en
+   el HTML- así no depende de tocar el markup y funciona apenas se le
+   pone la clase.
+
+   Por las dudas de que el componente también traiga su propio ícono
+   de flecha en el HTML (se vio una flechita duplicada), cualquier
+   svg que no sea el ícono principal (el primero) se oculta: así
+   queda una sola flecha, la del ::after, sea cual sea el markup real. */
+.perfil-biblioteca__item--enlace {
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s ease, box-shadow .2s ease, border-color .15s ease;
+}
+
+.perfil-biblioteca__item--enlace svg:not(:first-child) {
+    display: none;
+}
+
+.perfil-biblioteca__item--enlace::after {
+    content: "›";
+    flex: 0 0 auto;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--texto-muted);
+    transition: transform .15s ease, color .15s ease;
+}
+
+.perfil-biblioteca__item--enlace>div {
+    flex: 1;
+}
+
+.perfil-biblioteca__item--enlace:active {
+    transform: scale(0.98);
+}
+
+/* En mouse/escritorio: se levanta un poco y se resalta en verde para
+   que se note claramente que es distinto a los demás ítems (que son
+   solo información, no un enlace). */
+.perfil-biblioteca__item--enlace:hover {
+    border-color: var(--verde);
+    box-shadow: 0 6px 16px rgba(63, 107, 59, 0.12);
+    transform: translateY(-2px);
+}
+
+.perfil-biblioteca__item--enlace:hover::after {
+    color: var(--verde);
+    transform: translateX(3px);
+}
+
+.perfil-biblioteca__item--enlace .perfil-biblioteca__dato {
+    color: var(--verde);
+}
+
+.perfil-biblioteca__dato {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto);
+    margin: 0 0 2px;
+}
+
+.perfil-biblioteca__etiqueta {
+    font-size: 10px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+/* ==========================================================================
+   ESCRITORIO
+   En celular esta pantalla queda fija (100dvh) para que solo scrollee
+   .perfil-scroll por dentro. En escritorio soltamos ese truco: es una
+   página común que scrollea entera.
+
+   Antes esto se armaba con CSS Grid fijando fila 1 / fila 2 a mano
+   (tarjeta+stats en la fila 1 de la columna izquierda, menú+biblioteca
+   en la fila 1 de la columna derecha). El problema: la tarjeta de
+   perfil y el menú casi nunca miden lo mismo de alto (la tarjeta tiene
+   avatar + padding grande; el menú son 2 o 3 filitas), así que la fila
+   2 arrancaba a la altura del bloque MÁS alto de la fila 1 y del lado
+   más corto quedaba un hueco vacío antes de que aparezca el siguiente
+   bloque. Eso es lo que se veía mal.
+
+   Ahora .perfil-col--principal y .perfil-col--secundaria son dos
+   columnas de flujo normal (flexbox), cada una apila su propio
+   contenido de forma independiente sin esperar a la otra columna:
+   nunca queda un hueco artificial.
+   ========================================================================== */
+@media (min-width: 1024px) {
+    /* Misma protección de especificidad que en Auth.css: el HTML tiene
+       las dos clases juntas (class="aplicacion aplicacion--perfil"), y
+       style.css ya trae sus propias reglas de escritorio para
+       ".aplicacion" a secas. Un selector de una sola clase acá tendría
+       la misma especificidad y el resultado dependería del orden de
+       carga de los CSS. ".aplicacion.aplicacion--perfil" (las dos
+       clases juntas) gana siempre. */
+    .aplicacion.aplicacion--perfil {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: visible;
+    }
+
+    /* Mismo trato que el encabezado de Detalle.php: más aire arriba,
+       ya en escritorio no hace falta pegarlo tanto al borde. */
+    .encabezado-detalle {
+        padding-top: calc(32px + env(safe-area-inset-top, 0px));
+    }
+
+    .perfil-scroll {
+        overflow-y: visible;
+        display: flex;
+        align-items: flex-start;
+        gap: 40px;
+        padding-top: 20px;
+    }
+
+    /* Columna izquierda: tarjeta de perfil, con ancho fijo y pegada
+       (sticky) mientras se scrollea el resto, como un panel lateral. */
+    .perfil-col--principal {
+        flex: 0 0 300px;
+        position: sticky;
+        top: 32px;
+    }
+
+    .perfil-col--secundaria {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .perfil-tarjeta {
+        background: #FFFFFF;
+        border: 1px solid var(--linea);
+        border-radius: 20px;
+        padding: 40px 28px;
+        box-shadow: 0 2px 10px rgba(27, 27, 24, 0.05);
+    }
+
+    .perfil-avatar {
+        width: 108px;
+        height: 108px;
+    }
+
+    .perfil-avatar svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .perfil-tarjeta__nombre {
+        font-size: 22px;
+    }
+
+    .perfil-tarjeta__detalle {
+        font-size: 14px;
+    }
+
+    .perfil-tarjeta__boton-login {
+        width: 100%;
+    }
+
+    /* Los stats (reservas activas / lista de espera) van pegados abajo
+       de la misma tarjeta, como una franja propia, en vez de quedar
+       sueltos: se ven como parte de la misma "ficha de estudiante". */
+    .perfil-stats {
+        margin-top: 24px;
+        padding: 20px 0 0;
+        border-top: 1px solid var(--linea);
+    }
+
+    .ficha-dato {
+        padding: 16px 10px;
+    }
+
+    .ficha-dato__valor {
+        font-size: 18px;
+    }
+
+    .ficha-dato__etiqueta {
+        font-size: 10.5px;
+    }
+
+    /* --------------------------------------------------------------
+       Columna derecha: "Accesos rápidos" e "Información de la
+       biblioteca".
+
+       Antes cada ítem era una fila de una sola columna que se
+       estiraba a todo el ancho de la columna derecha: con el ícono y
+       el texto pegados a la izquierda y la flechita sola del otro
+       lado, quedaba un montón de aire vacío en el medio de CADA fila,
+       y esa sensación de "vacío" se multiplicaba por cada ítem de la
+       lista. Sumado al espacio que ya sobra al lado de la tarjeta
+       angosta de la izquierda, toda la mitad derecha de la pantalla
+       se sentía despoblada.
+
+       Ahora son grillas de 2 columnas: cada acceso / dato de la
+       biblioteca pasa a ser un bloque más compacto y cuadrado, y con
+       2 (o 3) ítems ya arman una cuadrícula que ocupa el ancho real
+       en vez de una sola columna angosta con un montón de sobrante al
+       costado. auto-fit + minmax hace que, si la pantalla es muy
+       ancha, quepan más columnas solas; si es más angosta, vuelve a
+       una sola columna sin que se corte nada.
+       -------------------------------------------------------------- */
+    .perfil-menu__titulo {
+        font-size: 13px;
+        margin: 0 0 14px;
+        padding: 0;
+    }
+
+    .perfil-menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 14px;
+        padding: 0;
+    }
+
+    .perfil-menu__item {
+        padding: 22px 22px;
+        font-size: 15px;
+        border-radius: 16px;
+    }
+
+    .perfil-menu__item svg:first-child {
+        width: 22px;
+        height: 22px;
+    }
+
+    .perfil-menu__flecha {
+        width: 18px;
+        height: 18px;
+    }
+
+    .perfil-biblioteca {
+        padding: 40px 0 0;
+    }
+
+    .perfil-biblioteca__titulo {
+        font-size: 16px;
+        margin: 0 0 14px;
+    }
+
+    .perfil-biblioteca__lista {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+    }
+
+    .perfil-biblioteca__item {
+        padding: 20px 22px;
+        border-radius: 16px;
+        /* Dentro de la grilla, que cada ítem quede prolijo aunque el
+           texto de al lado (el mail de contacto) sea más largo que el
+           resto: el dato y la etiqueta se acomodan en su propia
+           columna sin desbordar la tarjeta. */
+        align-items: flex-start;
+    }
+
+    .perfil-biblioteca__item>div {
+        min-width: 0;
+    }
+
+    .perfil-biblioteca__dato {
+        font-size: 14.5px;
+        overflow-wrap: break-word;
+    }
+
+    .perfil-biblioteca__etiqueta {
+        font-size: 11px;
+    }
+}

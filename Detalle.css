@@ -1,0 +1,651 @@
+/* ==========================================================================
+   detalle.css
+   Estilos exclusivos de la pantalla de detalle de libro.
+   Se carga DESPUÉS de style.css (no lo reemplaza, lo complementa).
+   ========================================================================== */
+
+/* Cualquier elemento con [hidden] debe desaparecer siempre, incluso si
+   otra regla más abajo le pone display:flex (como el modal). Sin esto,
+   el modal quedaba visible desde que cargaba la página. */
+[hidden] {
+    display: none !important;
+}
+
+/* Hace que "Ver detalle" funcione igual como <a> que como <button> */
+a.boton-detalle {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* La pantalla de detalle entra entera en el visor: no se desliza.
+   Es una columna flex de altura fija (100dvh) y cada bloque se acomoda
+   adentro; si la descripción es muy larga, ella sola scrollea internamente,
+   así el botón "Reservar" nunca queda tapado ni cortado.
+
+   BUG QUE ARREGLAMOS ACÁ: antes este contenedor tenía overflow:hidden
+   a secas. Si un libro tenía título largo + recomendación de profesor
+   + descripción larga, la suma de los bloques "fijos" (que no se
+   angostan: header, portada, ficha técnica, botón) podía superar el
+   alto real de la pantalla. Como la descripción es la única que puede
+   angostarse (flex-shrink), llegaba a achicarse hasta 0 y el resto
+   igual no entraba... y como el <body> también tenía overflow:hidden
+   (ver el <script> al final del archivo), no había ninguna forma de
+   scrollear para ver ni la descripción ni el botón "Reservar". Ahora
+   dejamos overflow-y:auto como red de seguridad: en el caso normal no
+   se nota ninguna diferencia (todo entra y no hay scroll visible),
+   pero si el contenido no entra, esta pantalla scrollea un poco en vez
+   de recortar contenido de forma inalcanzable. */
+.aplicacion--detalle {
+    display: flex;
+    flex-direction: column;
+    /* Vuelve a ser una pantalla fija: como la franja de "lo recomienda
+       tu profe" ahora va en la misma línea que "Descripción", se ahorra
+       una fila entera y el botón "Reservar" / "Cancelar reserva" entra
+       completo sin scrollear. Si aun así no entrara (texto enorme,
+       pantalla muy baja), overflow-y:auto deja scrollear en vez de
+       recortar. */
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    /* Espacio reservado para la navegación inferior fija (altura real
+       de .navegacion-inferior) más un margen chico, para que el botón
+       quede pegado cerca de ella en vez de flotar en el medio de la
+       pantalla. */
+    padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+}
+
+.encabezado-detalle,
+.detalle-libro,
+.detalle-libro__ficha,
+.detalle-libro__accion {
+    flex: 0 0 auto;
+}
+
+/* Encabezado con botón volver + título centrado.
+   z-index por encima de .modal-overlay (que usa 20): así la flechita de
+   volver siempre es clickeable, incluso si hay un modal abierto encima
+   (confirmación de reserva, mensaje de éxito/error, etc). */
+.encabezado-detalle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 20px 0;
+    position: relative;
+    z-index: 30;
+}
+
+.encabezado-detalle h1 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--texto);
+    margin: 0;
+}
+
+.boton-volver {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--texto);
+    padding: 0;
+    cursor: pointer;
+}
+
+.boton-volver svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.2;
+}
+
+/* Elemento invisible que balancea el flex para que el h1 quede centrado */
+.encabezado-detalle__relleno {
+    width: 32px;
+}
+
+/* Portada + información principal.
+   La portada ahora va arriba, grande y centrada; la info debajo. */
+.detalle-libro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 20px 0;
+}
+
+.detalle-libro__portada {
+    width: 58%;
+    max-width: 215px;
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(27, 27, 24, 0.12);
+}
+
+.detalle-libro__portada img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 140 / 180;
+    object-fit: cover;
+    display: block;
+}
+
+.detalle-libro__info {
+    width: 100%;
+    padding-top: 12px;
+    text-align: center;
+}
+
+.detalle-libro__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.25;
+    color: var(--texto);
+    margin: 0 0 4px;
+}
+
+.detalle-libro__autor {
+    font-size: 13px;
+    color: var(--texto-muted);
+    margin: 0 0 14px;
+}
+
+/* Fila de "chips" con la valoración, la devolución y el estado.
+   Mismo patrón visual que la ficha técnica, así los tres íconos
+   quedan alineados y centrados con su propio texto. */
+.detalle-libro__meta {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.meta-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--chip-bg);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--texto);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.meta-chip svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.meta-chip--valoracion svg {
+    fill: var(--naranja);
+    stroke: none;
+}
+
+.meta-chip--devolucion {
+    color: var(--naranja);
+}
+
+.meta-chip--devolucion svg {
+    stroke: var(--naranja);
+    stroke-width: 2;
+}
+
+.meta-chip--estado .libro__punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: block;
+}
+
+.meta-chip--estado.libro__estado--disponible {
+    color: var(--verde);
+}
+
+.meta-chip--estado.libro__estado--disponible .libro__punto {
+    background: var(--verde);
+}
+
+.meta-chip--estado.libro__estado--prestado {
+    color: var(--naranja);
+}
+
+.meta-chip--estado.libro__estado--prestado .libro__punto {
+    background: var(--naranja);
+}
+
+.descripcion__encabezado {
+    margin: 0 0 8px;
+}
+
+.descripcion__encabezado h3 {
+    margin: 0;
+}
+
+/* Quién recomienda el libro: ahora va DEBAJO del texto de la
+   descripción, no al lado del título. Se separa con un renglón
+   sutil arriba para que se lea como un dato aparte, no como
+   continuación del párrafo. */
+.libro__recomienda--pie {
+    margin: 14px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--linea);
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: left;
+    white-space: normal;
+}
+
+/* Ficha técnica: idioma, año de publicación, páginas */
+.detalle-libro__ficha {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px 0;
+}
+
+.ficha-dato {
+    flex: 1;
+    background: var(--chip-bg);
+    border-radius: 12px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.ficha-dato svg {
+    width: 18px;
+    height: 18px;
+    color: var(--verde);
+    stroke-width: 1.8;
+}
+
+.ficha-dato__valor {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--texto);
+}
+
+.ficha-dato__etiqueta {
+    font-size: 10px;
+    color: var(--texto-muted);
+}
+
+/* Descripción: es la única zona que scrollea si el texto no entra,
+   así el resto de la pantalla (y el botón de abajo) queda siempre fijo
+   y visible entero, sin necesidad de deslizar toda la pantalla. */
+.detalle-libro__descripcion {
+    flex: 1 1 auto;
+    /* BUG QUE ARREGLAMOS: con min-height:0 (necesario para que flexbox
+       la deje angostarse) pero sin ningún piso, una portada + ficha
+       técnica + banner de "lo recomienda tu profesor" ya ocupaban
+       lugar de sobra para dejarla en 0px real: la descripción
+       "desaparecía" del todo, sin ninguna pista de que estaba ahí ni
+       forma de leerla. Ahora reserva siempre un mínimo visible y, si
+       hace falta más, scrollea adentro (o la pantalla entera, ver
+       .aplicacion--detalle) en vez de colapsar a nada. */
+    min-height: clamp(76px, 14vh, 200px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding: 16px 20px 12px;
+}
+
+.detalle-libro__descripcion h3 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--texto);
+    margin: 0 0 8px;
+}
+
+.descripcion__texto {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+/* Botón "Reservar libro": estático, debajo de la descripción, dentro
+   del mismo bloque de altura fija. Nunca queda cortado ni tapado por
+   la navegación inferior. */
+.detalle-libro__accion {
+    /* El alto de la barra de gestos ya lo reserva .aplicacion--detalle;
+       acá no lo volvemos a sumar para no dejar un hueco doble. */
+    padding: 14px 20px;
+}
+
+.boton-reservar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    background: var(--verde);
+    color: #FFFFFF;
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 0;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.boton-reservar svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+}
+
+/* Ya reservado por vos: botón inactivo, no se puede volver a
+   reservar ni sumarte a la lista de espera del mismo libro. */
+.boton-reservar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Cancelar reserva / salir de la lista de espera: mismo botón pero en
+   naranja, para distinguirlo de la acción principal (reservar). */
+.boton-reservar--cancelar {
+    background: var(--naranja);
+}
+
+/* ==========================================================================
+   Modal de reserva / lista de espera
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 27, 24, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 20;
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
+.modal__cerrar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--chip-bg);
+    border-radius: 50%;
+    color: var(--texto);
+    cursor: pointer;
+}
+
+.modal__cerrar svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+.modal__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--texto);
+    margin: 0 28px 12px 0;
+}
+
+.modal__descripcion {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    margin: 0 0 22px;
+}
+
+.modal__acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.modal__acciones .boton-reservar {
+    flex: 1;
+}
+
+.boton-secundario {
+    flex: 1;
+    border: none;
+    background: var(--chip-bg);
+    color: var(--texto);
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 0;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.modal__campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--texto);
+    margin: 0 0 14px;
+}
+
+.modal__campo input {
+    font-family: var(--tipografia-texto);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+}
+
+.modal__campo input::placeholder {
+    color: var(--texto-muted);
+}
+
+.modal__campo input:focus {
+    border-color: var(--verde);
+}
+
+.modal__campo input[type="date"] {
+    color: var(--texto);
+}
+
+/* Mismo look redondeado del input de fecha, ahora también para el
+   desplegable de curso y el textarea de motivo (modal de "Recomendar
+   libro"), así se ven consistentes en todos los modales. */
+.modal__campo select,
+.modal__campo textarea {
+    font-family: var(--tipografia-texto);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+    width: 100%;
+}
+
+.modal__campo select {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.modal__campo textarea {
+    resize: vertical;
+    min-height: 64px;
+}
+
+.modal__campo select:focus,
+.modal__campo textarea:focus {
+    border-color: var(--verde);
+}
+
+.modal__campo textarea::placeholder {
+    color: var(--texto-muted);
+}
+
+.modal__confirmar {
+    margin-top: 4px;
+}
+
+.modal__exito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 12px 0 4px;
+}
+
+.modal__exito svg {
+    width: 48px;
+    height: 48px;
+    stroke: var(--verde);
+    stroke-width: 1.8;
+}
+
+.modal__exito h3 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--verde);
+    margin: 4px 0 0;
+}
+
+.modal__exito--error svg {
+    stroke: var(--naranja);
+}
+
+.modal__exito--error h3 {
+    color: var(--naranja);
+}
+
+.modal__exito p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--texto);
+    margin: 0 0 8px;
+}
+
+.modal__exito .boton-reservar {
+    margin-top: 4px;
+}
+/* ==========================================================================
+   ESCRITORIO
+   En celular esta pantalla es una sola "página fija" que no se
+   desliza (ver .aplicacion--detalle arriba). En escritorio no hace
+   falta ese truco: hay lugar de sobra, así que pasa a ser un layout
+   normal de dos columnas (portada a la izquierda, información a la
+   derecha) que scrollea como cualquier página.
+   ========================================================================== */
+@media (min-width: 1024px) {
+    .aplicacion--detalle {
+        display: grid;
+        grid-template-columns: 390px 1fr;
+        grid-template-areas:
+            "header  header"
+            "portada ficha"
+            "portada descripcion"
+            "portada accion";
+        column-gap: 48px;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+        padding-bottom: 40px;
+        align-items: start;
+    }
+
+    .encabezado-detalle {
+        grid-area: header;
+    }
+
+    .detalle-libro {
+        grid-area: portada;
+        align-items: flex-start;
+        text-align: left;
+        padding: 20px 0 0;
+        position: sticky;
+        top: 32px;
+    }
+
+    .detalle-libro__portada {
+        width: 100%;
+        max-width: 430px;
+    }
+
+    .detalle-libro__info {
+        text-align: left;
+    }
+
+    .detalle-libro__meta {
+        justify-content: flex-start;
+    }
+
+    .detalle-libro__ficha {
+        grid-area: ficha;
+        padding: 20px 0 0;
+    }
+
+    .detalle-libro__descripcion {
+        grid-area: descripcion;
+        min-height: 0;
+        max-height: none;
+        overflow-y: visible;
+        padding: 20px 0 0;
+    }
+
+    .detalle-libro__accion {
+        grid-area: accion;
+        padding: 20px 0 0;
+    }
+
+    /* Botones más anchos y un poco más altos en escritorio (a pedido):
+       ya no van pegados a un ancho fijo angosto, ocupan el ancho real
+       de su columna. */
+    .boton-reservar,
+    .boton-secundario {
+        font-size: 15px;
+        padding: 16px 0;
+    }
+}

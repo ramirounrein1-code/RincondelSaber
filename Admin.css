@@ -1,0 +1,415 @@
+.aplicacion--admin {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+.admin-encabezado {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.admin-encabezado h1 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+}
+
+.admin-encabezado p {
+    margin: 0;
+    color: #6b6b6b;
+}
+
+.admin-aviso {
+    background: #e6f6ec;
+    color: #1e7a3f;
+    border: 1px solid #bfe8cd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+}
+
+.admin-resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.admin-resumen__tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    padding: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s ease;
+}
+
+.admin-resumen__tarjeta:hover {
+    border-color: #b8b8b8;
+}
+
+.admin-resumen__valor {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.admin-resumen__etiqueta {
+    font-size: .85rem;
+    color: #6b6b6b;
+}
+
+.admin-seccion {
+    margin-bottom: 40px;
+    scroll-margin-top: 20px;
+}
+
+.admin-seccion h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.admin-vacio {
+    color: #6b6b6b;
+    font-style: italic;
+}
+
+.admin-tabla-wrap {
+    overflow-x: auto;
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+}
+
+.admin-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+}
+
+.admin-tabla th,
+.admin-tabla td {
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-tabla td {
+    border-top: 1px solid #eee;
+}
+
+.admin-tabla th {
+    background: #fafafa;
+    font-weight: 600;
+    color: #444;
+}
+
+.admin-tabla__sub {
+    display: block;
+    font-size: .78rem;
+    color: #888;
+    white-space: normal;
+}
+
+.admin-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.admin-badge--activo {
+    background: #fff2e0;
+    color: #a15c00;
+}
+
+.admin-badge--listo {
+    background: #e6f6ec;
+    color: #1e7a3f;
+}
+
+.admin-boton {
+    display: inline-block;
+    border: 1px solid #d0d0d0;
+    background: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: .85rem;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-boton:hover {
+    border-color: #999;
+}
+
+.admin-boton--peligro {
+    border-color: #f0b8b8;
+    color: #a11d1d;
+}
+
+.admin-boton--peligro:hover {
+    border-color: #d34141;
+}
+
+.admin-boton--secundario {
+    align-self: flex-start;
+}
+
+.admin-mensajes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-mensaje {
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.admin-mensaje--nuevo {
+    border-left: 3px solid #d88a2b;
+}
+
+.admin-mensaje__encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.admin-mensaje__tipo {
+    display: inline-block;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: #6b6b6b;
+    margin: 0 0 6px;
+}
+
+.admin-mensaje__acciones {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.admin-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px;
+    background: #fafafa;
+    border: 1px solid #e4e4e4;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.admin-filtros__campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 140px;
+    min-width: 120px;
+}
+
+.admin-filtros__campo label {
+    font-size: .78rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.admin-filtros__campo select,
+.admin-filtros__campo input {
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: .9rem;
+    background: #fff;
+    color: inherit;
+    font-family: inherit;
+}
+
+.admin-filtros__acciones {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+.admin-filtros__resultado {
+    font-size: .85rem;
+    color: #6b6b6b;
+    margin: -8px 0 12px;
+}
+
+/* ============================================
+   RESPONSIVE
+   Hasta 640px: header y resumen se apilan, y las
+   tablas pasan de filas horizontales a tarjetas
+   verticales (usando el data-label de cada <td>
+   como etiqueta), para no depender del scroll
+   horizontal en el celular.
+   ============================================ */
+@media (max-width: 640px) {
+    .aplicacion--admin {
+        padding: 16px 12px 40px;
+    }
+
+    .admin-encabezado {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .admin-encabezado h1 {
+        font-size: 1.2rem;
+    }
+
+    .admin-boton--secundario {
+        align-self: stretch;
+        text-align: center;
+    }
+
+    .admin-resumen {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .admin-resumen__tarjeta {
+        padding: 10px;
+    }
+
+    .admin-resumen__valor {
+        font-size: 1.2rem;
+    }
+
+    .admin-resumen__etiqueta {
+        font-size: .72rem;
+    }
+
+    .admin-seccion h2 {
+        font-size: 1rem;
+    }
+
+    .admin-filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-filtros__campo {
+        min-width: 0;
+    }
+
+    .admin-filtros__acciones {
+        flex-direction: column;
+    }
+
+    .admin-filtros__acciones .admin-boton {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Tabla -> lista de tarjetas */
+    .admin-tabla-wrap {
+        overflow-x: visible;
+        border: none;
+    }
+
+    .admin-tabla {
+        border: none;
+    }
+
+    .admin-tabla thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .admin-tabla,
+    .admin-tabla tbody,
+    .admin-tabla tr,
+    .admin-tabla td {
+        display: block;
+        width: 100%;
+    }
+
+    .admin-tabla tr {
+        border: 1px solid #e4e4e4;
+        border-radius: 12px;
+        padding: 10px 14px;
+        margin-bottom: 12px;
+        background: #fff;
+    }
+
+    .admin-tabla td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        white-space: normal;
+        text-align: right;
+        border-top: none;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 8px 0;
+    }
+
+    .admin-tabla td:last-child {
+        border-bottom: none;
+    }
+
+    .admin-tabla td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #444;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .admin-tabla td:not([data-label=""])::before {
+        margin-right: auto;
+    }
+
+    /* Celdas sin etiqueta (la del botón de acción): que ocupen todo
+       el ancho y el botón se vea completo en vez de apretado. */
+    .admin-tabla td[data-label=""] {
+        justify-content: flex-end;
+    }
+
+    .admin-tabla td[data-label=""]::before {
+        content: none;
+    }
+
+    .admin-tabla td form,
+    .admin-tabla td .admin-boton {
+        width: 100%;
+    }
+
+    .admin-mensaje__encabezado {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .admin-mensaje__acciones {
+        flex-direction: column;
+    }
+
+    .admin-mensaje__acciones form,
+    .admin-mensaje__acciones .admin-boton {
+        width: 100%;
+    }
+}

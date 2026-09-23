@@ -1,0 +1,259 @@
+/* ==========================================================================
+   Animaciones.css
+   Animaciones y transiciones compartidas por toda la app. Se carga
+   siempre desde componentes/head.php, así que definir algo acá alcanza
+   para que se vea en todas las pantallas (antes no había ningún lugar
+   común para esto).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------
+   Entrada de las secciones de una pantalla: un fade + deslizamiento
+   corto hacia arriba, en cascada (cada sección un poquito más tarde
+   que la anterior) para que la pantalla se sienta viva al cargar sin
+   marear ni retrasar la lectura.
+   -------------------------------------------------------------------- */
+@keyframes entrada-suave {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.encabezado,
+.encabezado-detalle,
+.buscador,
+.destacado,
+.categorias,
+.recomendados,
+.nuevos-ingresos,
+.catalogo,
+.detalle-libro,
+.detalle-libro__ficha,
+.detalle-libro__descripcion,
+.perfil-tarjeta,
+.perfil-stats,
+.perfil-menu,
+.perfil-biblioteca,
+.reservas-tabs,
+.reservas-lista,
+.filtro-curso,
+.auth-logo,
+.auth-formulario,
+.contacto-intro,
+.contacto-errores,
+.contacto-exito,
+.form-contacto {
+    animation: entrada-suave 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.buscador,
+.contacto-intro {
+    animation-delay: .03s;
+}
+
+.destacado,
+.detalle-libro,
+.contacto-errores,
+.contacto-exito {
+    animation-delay: .05s;
+}
+
+.categorias,
+.detalle-libro__ficha,
+.form-contacto {
+    animation-delay: .09s;
+}
+
+.recomendados,
+.detalle-libro__descripcion {
+    animation-delay: .13s;
+}
+
+.nuevos-ingresos,
+.catalogo {
+    animation-delay: .17s;
+}
+
+/* El botón de acción principal (Reservar / Recomendar / etc.) no
+   anima su entrada a propósito: es la acción principal de la pantalla
+   y conviene que esté quieto y disponible desde el primer frame, sin
+   ningún movimiento que lo distraiga o retrase su lectura. */
+
+/* Las tarjetas de listas (catálogo, reservas, recomendaciones) entran
+   con un fundido simple: son potencialmente muchas, así que sin
+   demoras escalonadas por ítem (para no atrasar la sensación de "ya
+   cargó todo" cuando hay 20 libros). */
+@keyframes fundido-simple {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.libro,
+.libro--catalogo,
+.reserva-tarjeta,
+.recomendar-tarjeta {
+    animation: fundido-simple 0.4s ease both;
+}
+
+/* --------------------------------------------------------------------
+   Feedback táctil: todo lo que se puede tocar/clickear se "achica" un
+   poquito al presionarlo, como en una app nativa.
+   -------------------------------------------------------------------- */
+.boton-reservar,
+.boton-secundario,
+.boton-detalle,
+.perfil-menu__item,
+.filtro-curso__chip,
+.categoria,
+.reservas-tabs__boton,
+.navegacion-inferior__item,
+.modal__cerrar,
+.boton-volver {
+    transition: transform .15s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.boton-reservar:active,
+.boton-secundario:active,
+.boton-detalle:active,
+.perfil-menu__item:active,
+.filtro-curso__chip:active,
+.categoria:active,
+.reservas-tabs__boton:active,
+.modal__cerrar:active,
+.boton-volver:active {
+    transform: scale(0.96);
+}
+
+.navegacion-inferior__item svg {
+    transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* El tamaño del ícono activo ya lo define style.css (funciona en
+   todas las pantallas); acá solo sumamos el pequeño salto hacia
+   arriba, que es lo que sí cuenta como animación. */
+.navegacion-inferior__item--activo svg {
+    transform: translateY(-2px) scale(1.18);
+}
+
+/* --------------------------------------------------------------------
+   Modales: entran con un pequeño rebote en vez de aparecer de golpe.
+   -------------------------------------------------------------------- */
+@keyframes overlay-fundido {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-overlay {
+    animation: overlay-fundido 0.2s ease both;
+}
+
+.modal-overlay .modal {
+    animation: modal-entrada 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------------------------------------------------
+   Insignias (nuevo / recomendado) y el punto de disponibilidad: un
+   pequeño "pop" al aparecer, para que llamen un poco más la atención
+   sin ser invasivas.
+   -------------------------------------------------------------------- */
+@keyframes insignia-pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.insignia-nuevo,
+.insignia-recomendado,
+.contacto-exito svg {
+    animation: insignia-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: .2s;
+}
+
+/* --------------------------------------------------------------------
+   Accesibilidad: quien prefiera menos movimiento en su sistema, lo
+   recibe. No apagamos las transiciones de color (son sutiles y
+   ayudan a entender la interfaz), solo los desplazamientos/zooms.
+   -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .encabezado,
+    .encabezado-detalle,
+    .buscador,
+    .destacado,
+    .categorias,
+    .recomendados,
+    .nuevos-ingresos,
+    .catalogo,
+    .detalle-libro,
+    .detalle-libro__ficha,
+    .detalle-libro__descripcion,
+    .perfil-tarjeta,
+    .perfil-stats,
+    .perfil-menu,
+    .perfil-biblioteca,
+    .reservas-tabs,
+    .reservas-lista,
+    .filtro-curso,
+    .auth-logo,
+    .auth-formulario,
+    .contacto-intro,
+    .contacto-errores,
+    .contacto-exito,
+    .contacto-exito svg,
+    .form-contacto,
+    .libro,
+    .libro--catalogo,
+    .reserva-tarjeta,
+    .recomendar-tarjeta,
+    .insignia-nuevo,
+    .insignia-recomendado,
+    .modal-overlay,
+    .modal-overlay .modal {
+        animation: none !important;
+    }
+
+    .navegacion-inferior__item--activo svg {
+        /* Con "menos movimiento" preferido sacamos el salto hacia
+           arriba, pero dejamos el ícono más grande: sigue marcando
+           igual cuál es la sección activa, solo que sin animarlo. */
+        transform: scale(1.18);
+    }
+}

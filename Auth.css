@@ -1,0 +1,180 @@
+/* ==========================================================================
+   auth.css
+   Estilos exclusivos de Login.html y Registro.html.
+   Se carga DESPUÉS de style.css y detalle.css: reutiliza .modal__campo
+   (campos de formulario) y .boton-reservar (botón verde) que ya existen
+   en detalle.css, así no se duplica CSS.
+   ========================================================================== */
+
+/* En estas dos pantallas no hay navegación inferior, así que no
+   necesitamos el padding que le reserva lugar en el resto del sitio.
+   Además la pantalla entra entera en el visor y no se puede desplazar,
+   igual que .aplicacion--detalle en detalle.css. */
+.aplicacion.aplicacion--auth {
+    padding-bottom: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+.aplicacion--auth .encabezado-detalle,
+.aplicacion--auth .auth-logo,
+.aplicacion--auth .auth-mensaje {
+    flex: 0 0 auto;
+}
+
+.auth-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 36px 20px 8px;
+    text-align: center;
+}
+
+.auth-logo svg {
+    width: 40px;
+    height: 40px;
+    stroke: var(--verde);
+    stroke-width: 2.4;
+}
+
+.auth-logo svg circle {
+    fill: var(--verde);
+    stroke: none;
+}
+
+.auth-logo h1 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--texto);
+    margin: 4px 0 0;
+}
+
+.auth-logo p {
+    font-size: 13px;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+/* Mensajes de error / aviso que llegan desde login.php o registro.php
+   por query string (?error=... / ?registrado=1) */
+.auth-mensaje {
+    margin: 4px 20px 0;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.auth-mensaje--error {
+    background: rgba(201, 129, 47, 0.14);
+    color: var(--naranja);
+}
+
+.auth-mensaje--exito {
+    background: rgba(63, 107, 59, 0.12);
+    color: var(--verde);
+}
+
+.auth-formulario {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px 0;
+}
+
+.aplicacion--auth .auth-alterno {
+    flex: 0 0 auto;
+}
+
+/* .modal__campo ya trae el label + input estilados desde detalle.css;
+   acá solo ajustamos el espaciado para que se vea bien fuera del modal. */
+.auth-formulario .modal__campo {
+    margin: 0 0 14px;
+}
+
+.auth-formulario .boton-reservar {
+    margin-top: 6px;
+}
+
+.auth-campo-doble {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-campo-doble .modal__campo {
+    flex: 1;
+}
+
+.auth-ayuda {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    margin: 0 0 16px;
+}
+
+.auth-alterno {
+    text-align: center;
+    font-size: 12px;
+    color: var(--texto-muted);
+    padding: 18px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
+.auth-alterno a {
+    color: var(--verde);
+    font-weight: 700;
+}
+/* ==========================================================================
+   ESCRITORIO
+   En celular el login/registro ocupa toda la pantalla fija (100dvh).
+   En escritorio eso se ve como un formulario gigante y vacío: pasa a
+   ser una tarjeta centrada, angosta, como cualquier pantalla de login
+   de una web (con la crema de fondo, no la app estirada entera).
+
+   OJO CON LA ESPECIFICIDAD: en el HTML esta pantalla tiene las DOS
+   clases juntas, class="aplicacion aplicacion--auth". style.css ya
+   trae sus propias reglas de escritorio para ".aplicacion" a secas
+   (max-width:1040px, margin-left:168px, para la barra lateral del
+   resto del sitio). Un selector de una sola clase acá (".aplicacion--auth")
+   tiene la MISMA especificidad que ese ".aplicacion" de style.css, así
+   que quién gana termina dependiendo del orden en que se carguen los
+   archivos — y por eso se veía ancha de punta a punta en vez de como
+   tarjeta. Usando ".aplicacion.aplicacion--auth" (las dos clases juntas,
+   sin espacio) la especificidad es más alta y esta regla gana siempre,
+   sin importar el orden de los <link>. */
+@media (min-width: 1024px) {
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .aplicacion.aplicacion--auth {
+        height: auto;
+        min-height: 0;
+        max-width: 400px;
+        width: 100%;
+        margin: 40px auto;
+        padding-bottom: 0;
+        background: #FFFFFF;
+        border: 1px solid var(--linea);
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(27, 27, 24, 0.1);
+        overflow: visible;
+    }
+
+    .auth-formulario {
+        overflow-y: visible;
+    }
+}

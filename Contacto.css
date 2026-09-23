@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Contacto.css
+   Estilos exclusivos de contacto.php.
+   ========================================================================== */
+
+.contacto-intro {
+    padding: 18px 20px 4px;
+}
+
+.contacto-intro__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 19px;
+    margin: 0 0 6px;
+}
+
+.contacto-intro__texto {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--texto-muted);
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------
+   Lista roja de errores: se muestra arriba del formulario cuando el
+   envío por POST no pasó alguna validación. Junta todos los errores
+   encontrados (puede haber más de uno a la vez).
+   -------------------------------------------------------------------- */
+.contacto-errores {
+    margin: 14px 20px 0;
+    background: rgba(179, 38, 30, 0.08);
+    border: 1px solid rgba(179, 38, 30, 0.25);
+    border-radius: 14px;
+    padding: 14px 16px;
+}
+
+.contacto-errores__titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--rojo);
+    margin: 0 0 8px;
+}
+
+.contacto-errores__titulo svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--rojo);
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+.contacto-errores ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style: disc;
+}
+
+.contacto-errores li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--rojo);
+}
+
+.contacto-errores li+li {
+    margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------
+   Tarjeta verde de éxito: reemplaza al formulario cuando el mensaje
+   se envió correctamente.
+   -------------------------------------------------------------------- */
+.contacto-exito {
+    margin: 18px 20px 0;
+    background: rgba(63, 107, 59, 0.08);
+    border: 1px solid rgba(63, 107, 59, 0.25);
+    border-radius: 16px;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.contacto-exito svg {
+    width: 46px;
+    height: 46px;
+    stroke: var(--verde);
+    stroke-width: 1.8;
+}
+
+.contacto-exito h2 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--verde);
+    margin: 4px 0 0;
+}
+
+.contacto-exito p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--texto);
+    margin: 0;
+}
+
+.contacto-exito .boton-secundario {
+    margin-top: 6px;
+    display: inline-block;
+    flex: none;
+    padding: 12px 24px;
+    text-decoration: none;
+}
+
+/* --------------------------------------------------------------------
+   Formulario: reutiliza el mismo look de campos que los modales
+   (.modal__campo, .modal__campo input/select/textarea, definidos en
+   Detalle.css) para que se vea igual que el resto del sitio, sin
+   duplicar esos estilos acá.
+   -------------------------------------------------------------------- */
+.form-contacto {
+    padding: 18px 20px 28px;
+}
+
+.form-contacto .modal__campo {
+    margin: 0 0 16px;
+}
+
+.form-contacto__ayuda {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--texto-muted);
+    margin-top: 4px;
+}
+
+.form-contacto__contador {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--texto-muted);
+    margin-top: 4px;
+    text-align: right;
+}
+
+/* ==========================================================================
+   ESCRITORIO
+   Esta pantalla no tiene un contenedor propio (usa .aplicacion común),
+   así que en escritorio hereda el ancho ancho de 1160px de style.css.
+   Un formulario de contacto estirado a ese ancho se ve raro, así que
+   acá centramos cada bloque en una columna de lectura cómoda.
+   ========================================================================== */
+@media (min-width: 1024px) {
+    .contacto-intro,
+    .contacto-errores,
+    .contacto-exito,
+    .form-contacto {
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .contacto-intro {
+        padding-top: 32px;
+        text-align: center;
+    }
+}

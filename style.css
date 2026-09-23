@@ -1,0 +1,1267 @@
+/* ==========================================================================
+   Variables globales: paleta de colores y tipografías del proyecto
+   ========================================================================== */
+:root {
+    --crema: #F5F3EE;
+    /* fondo general de la app */
+    --panel-oscuro: #202C22;
+    /* fondo del banner destacado */
+    --verde: #3F6B3B;
+    /* verde principal, acentos y estado "disponible" */
+    --verde-oscuro: #4C6B32;
+    /* verde para texto sobre fondos claros */
+    --texto: #1B1B18;
+    /* color de texto principal */
+    --texto-muted: #6E6C64;
+    /* color de texto secundario / placeholders */
+    --chip-bg: #EAE7DE;
+    /* fondo de chips, botones e íconos */
+    --linea: rgba(27, 27, 24, 0.08);
+    /* líneas divisorias sutiles */
+    --naranja: #C9812F;
+    /* color para el estado "prestado" */
+    --rojo: #B3261E;
+    /* color de error para validaciones de formularios (ej. contacto.php) */
+    --tipografia-titulo: 'Zalando Sans', sans-serif;
+    /* fuente de títulos */
+    --tipografia-texto: 'Arimo', sans-serif;
+    /* fuente de texto */
+}
+
+/* Reset básico: todos los elementos suman padding y border al ancho total */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--texto);
+    font-family: var(--tipografia-texto);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Quitamos los estilos por defecto de listas y enlaces */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* Estilo base para todos los íconos svg: así no repetimos los mismos
+   atributos (tamaño, grosor, color) en cada ícono del HTML */
+svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Contenedor general: simula el ancho de una pantalla de celular.
+   430px de ancho es, a propósito, el mismo ancho lógico (CSS px) que
+   un iPhone 14 Pro Max: en ese equipo la app se ve borde a borde, sin
+   franjas vacías a los costados. */
+.aplicacion {
+    max-width: 430px;
+    margin: 0 auto;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    /* deja lugar para que la navegación inferior no tape contenido,
+       más el alto real del "home indicator" en iPhone con notch */
+}
+
+/* ==========================================================================
+   Encabezado (logo)
+   ========================================================================== */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 20px 0;
+    /* el safe-area-inset-top empuja el logo por debajo de la Dynamic
+       Island / notch en vez de quedar tapado por ella */
+}
+
+.logotipo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logotipo__icono {
+    width: 38px;
+    height: 38px;
+    stroke: var(--verde);
+    stroke-width: 2.4;
+}
+
+.logotipo__icono circle {
+    fill: var(--verde);
+    stroke: none;
+}
+
+.logotipo__texto {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.15;
+    color: var(--texto);
+}
+
+/* ==========================================================================
+   Indicador de sesión (Invitado / alumno logueado) junto al logo
+   ========================================================================== */
+.sesion-indicador {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    text-decoration: none;
+}
+
+.sesion-indicador__nombre {
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--texto);
+}
+
+.sesion-indicador__etiqueta {
+    font-size: 10px;
+    color: var(--verde);
+    font-weight: 600;
+}
+
+.sesion-indicador--invitado .sesion-indicador__nombre {
+    color: var(--texto-muted);
+}
+
+/* ==========================================================================
+   Buscador
+   ========================================================================== */
+.buscador {
+    margin: 16px 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--chip-bg);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--texto-muted);
+}
+
+.buscador svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+.buscador__campo {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--tipografia-texto);
+    font-size: 14px;
+    color: var(--texto);
+    width: 100%;
+}
+
+.buscador__campo::placeholder {
+    color: var(--texto-muted);
+}
+
+.buscador__sin-resultados {
+    margin: 12px 20px 0;
+    font-size: 13px;
+    color: var(--texto-muted);
+    text-align: center;
+}
+
+/* ==========================================================================
+   Catálogo (grilla de 2 columnas, a diferencia de los rieles horizontales)
+   ========================================================================== */
+.catalogo {
+    padding: 22px 0 0;
+}
+
+.catalogo__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+    padding: 0 20px;
+}
+
+.catalogo__grid .libro--catalogo {
+    width: auto;
+}
+
+.catalogo__grid .libro__portada {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 140 / 180;
+}
+
+/* ==========================================================================
+   Banner destacado ("Descubrí tu próxima lectura")
+   ========================================================================== */
+.destacado {
+    padding: 18px 20px 0;
+}
+
+.destacado__tarjeta {
+    background: var(--panel-oscuro);
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    /* texto un poco más ancho que la imagen */
+    align-items: center;
+    overflow: hidden;
+    min-height: 170px;
+}
+
+.destacado__texto {
+    padding: 20px 10px 20px 20px;
+    margin: 0;
+}
+
+.destacado__texto h1 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.25;
+    color: #FFFFFF;
+    margin: 0 0 8px;
+}
+
+.destacado__texto em {
+    color: var(--verde);
+    font-weight: 700;
+    font-style: normal;
+    /* usamos <em> por semántica, no queremos cursiva */
+}
+
+.destacado__texto p {
+    font-size: 13px;
+    color: #D9DCD3;
+    margin: 0;
+}
+
+.destacado__texto .destacado__stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 10px 0 0;
+    font-size: 11px;
+    color: #D9DCD3;
+}
+
+.destacado__stat strong {
+    color: var(--verde);
+    font-family: var(--tipografia-titulo);
+    font-weight: 700;
+}
+
+.destacado__stat-punto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--verde);
+    flex-shrink: 0;
+    animation: destacado-pulso 1.8s ease-in-out infinite;
+}
+
+@keyframes destacado-pulso {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+}
+
+/* Imagen de fondo simulada con gradientes, sin usar una foto real todavía */
+.destacado__imagen {
+    height: 100%;
+    min-height: 170px;
+    margin: 0;
+    background:
+        linear-gradient(180deg, rgba(32, 44, 34, 0) 40%, rgba(32, 44, 34, 0.5) 100%),
+        repeating-linear-gradient(90deg, #3A2E22 0 10px, #4A3B2B 10px 20px),
+        linear-gradient(180deg, #6E5A41 0%, #3A2E22 100%);
+}
+
+/* Mientras el texto "Descubrí tu próxima lectura" está oculto, el
+   carrusel ocupa la tarjeta entera (sin la grilla de 2 columnas).
+   Altura fija (no solo min-height) para que las 3 imágenes se vean
+   siempre del mismo tamaño, recortadas parejo con object-fit: cover. */
+.destacado__tarjeta--carrusel {
+    display: block;
+    padding: 0;
+    height: 190px;
+}
+
+/* ==========================================================================
+   Carrusel del banner: 3 imágenes (imagenes/banner-1.jpg, banner-2.jpg,
+   banner-3.jpg) que se van deslizando de a una hacia la derecha* cada
+   4 segundos, en loop. (*técnicamente la "pista" se mueve hacia la
+   izquierda para que la imagen entre desde la derecha, que es el
+   efecto de deslizamiento habitual en los carruseles).
+   ========================================================================== */
+.carrusel-banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carrusel-banner__pista {
+    display: flex;
+    width: 400%;
+    /* 3 slides reales + 1 copia de la primera, para el loop sin rebote */
+    height: 100%;
+    transition: transform 0.6s ease;
+}
+
+.carrusel-banner__slide {
+    width: 25%;
+    height: 100%;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.carrusel-banner__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carrusel-banner__puntos {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.carrusel-banner__punto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.carrusel-banner__punto--activo {
+    background: #FFFFFF;
+    transform: scale(1.3);
+}
+
+/* ==========================================================================
+   Encabezado genérico de cada sección (título + espaciado lateral)
+   ========================================================================== */
+.categorias,
+.recomendados,
+.nuevos-ingresos {
+    padding: 22px 0 0;
+    /* sin padding lateral: lo maneja el encabezado y las listas */
+}
+
+.nuevos-ingresos {
+    padding-bottom: 8px;
+}
+
+.seccion__encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 0 12px;
+    padding: 0 20px;
+}
+
+.seccion__encabezado h2 {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--texto);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Rieles horizontales: categorías, libros recomendados y nuevos ingresos
+   Comparten el mismo comportamiento de scroll, así que agrupamos los
+   selectores y solo separamos lo que cambia (el "gap" entre elementos).
+   ========================================================================== */
+.libros__lista {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 20px 4px;
+    /* deja que el riel llegue de punta a punta de la pantalla */
+    scrollbar-width: none;
+    /* oculta la barra de scroll en Firefox */
+    -ms-overflow-style: none;
+    /* oculta la barra de scroll en Edge/IE */
+    gap: 12px;
+}
+
+/* Oculta la barra de scroll en navegadores basados en Chromium/Safari */
+.libros__lista::-webkit-scrollbar {
+    display: none;
+}
+
+/* Categorías: ya no es un carrusel horizontal. Se reparten en una
+   sola fila fija que ocupa todo el ancho, sin scroll ni recorte. */
+.categorias__lista {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 4px;
+    gap: 6px;
+}
+
+/* ==========================================================================
+   Categorías
+   ========================================================================== */
+.categoria {
+    width: 72px;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--tipografia-texto);
+    font-size: 11px;
+    color: var(--texto);
+    cursor: pointer;
+}
+
+.categoria__icono {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--chip-bg);
+    padding: 18px;
+    color: var(--texto);
+}
+
+/* Estado activo: la categoría seleccionada ("Todos") */
+.categoria--activa .categoria__icono {
+    background: rgba(126, 168, 76, 0.16);
+    color: var(--verde);
+}
+
+.categoria--activa {
+    color: var(--verde);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Libros recomendados
+   ========================================================================== */
+.libro {
+    width: 140px;
+}
+
+.libro__portada {
+    width: 140px;
+    height: 180px;
+    border-radius: 10px;
+    margin: 0 0 8px;
+    overflow: hidden;
+    background: var(--chip-bg);
+    position: relative;
+}
+
+.libro__portada img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ==========================================================================
+   Portadas sin imagen: mientras no haya fotos reales en imagenes/, en
+   vez del ícono de "imagen rota" del navegador mostramos un ícono de
+   libro centrado sobre el fondo de la portada. Ver imagenes-fallback.js.
+   ========================================================================== */
+.libro__portada,
+.detalle-libro__portada,
+.reserva-tarjeta__portada {
+    position: relative;
+}
+
+.portada--sin-imagen img {
+    visibility: hidden;
+}
+
+.portada--sin-imagen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 34%;
+    aspect-ratio: 1;
+    background-color: var(--texto-muted);
+    opacity: 0.55;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5c3-1.3 6-1.3 8 0v14c-2-1.3-5-1.3-8 0V5z'/%3E%3Cpath d='M20 5c-3-1.3-6-1.3-8 0v14c2-1.3 5-1.3 8 0V5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5c3-1.3 6-1.3 8 0v14c-2-1.3-5-1.3-8 0V5z'/%3E%3Cpath d='M20 5c-3-1.3-6-1.3-8 0v14c2-1.3 5-1.3 8 0V5z'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.libro__portada figcaption {
+    font-family: var(--tipografia-titulo);
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.2;
+}
+
+.libro__titulo {
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 13px;
+    margin: 0 0 2px;
+    color: var(--texto);
+}
+
+.libro__autor {
+    font-size: 11px;
+    color: var(--texto-muted);
+    margin: 0 0 6px;
+}
+
+.libro__recomienda {
+    font-size: 10px;
+    color: var(--texto-muted);
+    margin: 0 0 6px;
+    line-height: 1.35;
+}
+
+.libro__recomienda strong {
+    color: var(--verde);
+    font-weight: 700;
+}
+
+/* Libros sin ninguna recomendación para tu curso: mismo lugar que el
+   texto de arriba (para que todas las tarjetas midan igual), pero en
+   cursiva y más tenue, ya que acá no hay nada que resaltar. */
+.libro__recomienda--vacio {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.libro__estado {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    margin: 0 0 10px;
+    font-weight: 500;
+}
+
+.libro__punto {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+/* Estados de disponibilidad del libro */
+.libro__estado--disponible {
+    color: var(--verde);
+}
+
+.libro__estado--disponible .libro__punto {
+    background: var(--verde);
+}
+
+.libro__estado--prestado {
+    color: var(--naranja);
+}
+
+.libro__estado--prestado .libro__punto {
+    background: var(--naranja);
+}
+
+.boton-detalle {
+    width: 100%;
+    border: none;
+    background: var(--chip-bg);
+    color: var(--verde);
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 9px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Insignia "nuevo" (estrella verde sobre la portada)
+   ========================================================================== */
+.insignia-nuevo {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.insignia-nuevo svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--verde);
+    stroke: none;
+}
+
+/* ==========================================================================
+   Filtro por curso (chips horizontales, con scroll si no entran todos).
+   Se usa en Recomendar.php en vez de un <select> nativo, que en
+   celular tapa media pantalla y es incómodo de tocar.
+   ========================================================================== */
+.filtro-curso {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 20px 4px;
+    margin: 18px 0 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.filtro-curso::-webkit-scrollbar {
+    display: none;
+}
+
+.filtro-curso__chip {
+    flex: 0 0 auto;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--texto);
+    font-family: var(--tipografia-titulo);
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.filtro-curso__chip--activo {
+    background: var(--verde);
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Insignia de recomendación de profesores (arriba a la derecha de la
+   portada, mismo lugar que .insignia-nuevo). Verde de 1 a 4
+   recomendaciones; dorada a partir de 5 (libro "muy recomendado").
+   ========================================================================== */
+.insignia-recomendado {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.insignia-recomendado svg {
+    width: 13px;
+    height: 13px;
+    fill: var(--verde);
+    stroke: none;
+}
+
+.insignia-recomendado--destacado svg {
+    fill: #D4A017;
+    /* dorado: se ve claramente distinto del verde de "1 a 4" */
+}
+
+/* ==========================================================================
+   Navegación inferior (fija al pie de la pantalla)
+   ========================================================================== */
+.navegacion-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 430px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-top: 1px solid var(--linea);
+}
+
+.navegacion-inferior ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 calc(14px + env(safe-area-inset-bottom, 0px));
+    /* reserva el alto real del home indicator, para que los íconos no
+       queden pegados (o tapados) por la barrita de gestos del iPhone */
+}
+
+.navegacion-inferior__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--texto-muted);
+}
+
+/* El ítem activo se ve en verde y con el ícono más grande que el
+   resto, para que quede claro en qué sección estás. Va acá (no en
+   Animaciones.css) para que funcione también en las pantallas sin
+   animaciones, como Perfil y los logins. */
+.navegacion-inferior__item--activo {
+    color: var(--verde);
+}
+
+.navegacion-inferior__item--activo svg {
+    transform: scale(1.18);
+}
+
+
+/* ==========================================================================
+   TABLET Y ESCRITORIO
+   Hasta 430px el sitio funciona como una app de celular. A partir de
+   ahí, en vez de simular un teléfono flotando sobre un fondo oscuro
+   (como era antes), la app pasa a usar el ancho real de la pantalla:
+   más columnas en las grillas de libros, banner más grande, etc.
+   ========================================================================== */
+
+/* Tablet: todavía una sola columna de contenido, pero ya no atada a
+   los 430px de un celular. */
+@media (min-width: 700px) {
+    .aplicacion {
+        max-width: 700px;
+    }
+
+    .navegacion-inferior {
+        max-width: 700px;
+    }
+
+    .buscador {
+        max-width: 420px;
+    }
+
+    .encabezado {
+        padding-top: 28px;
+    }
+
+    /* Categorías: siguen en fila con ícono arriba y texto debajo (como
+       en celular), pero un poco más grandes y con más aire, ya que en
+       tablet sobra espacio horizontal. El rediseño como chips
+       horizontales queda solo para escritorio real (mouse + pantalla
+       ancha), ver más abajo. */
+    .categorias__lista {
+        justify-content: center;
+        gap: 22px;
+    }
+
+    .categoria {
+        width: 84px;
+        font-size: 12px;
+    }
+
+    .categoria__icono {
+        width: 64px;
+        height: 64px;
+        padding: 19px;
+    }
+
+    .catalogo__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        padding: 0 20px;
+    }
+
+    /* Los rieles de "Recomendados" / "Nuevos ingresos" dejan de ser
+       scroll horizontal y pasan a ser una grilla que se acomoda sola
+       según el espacio disponible. */
+    .libros__lista {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        overflow-x: visible;
+        padding: 0 20px 4px;
+        gap: 18px;
+    }
+
+    .libro {
+        width: auto;
+    }
+
+    .libro__portada {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 140 / 180;
+    }
+}
+
+/* Escritorio: la app ocupa el ancho real de la ventana (con un techo
+   razonable para que el texto no quede estirado de punta a punta),
+   sin la "cajita de celular" que tenía antes. La navegación pasa de
+   una barra fija abajo (pensada para el pulgar en celular) a una
+   barra lateral fija a la izquierda, como Instagram/Twitter en
+   escritorio: con más lugar, tiene más sentido tenerla siempre a la
+   vista al costado que ocupando una franja abajo de toda la pantalla. */
+@media (min-width: 1024px) {
+    body {
+        background: var(--crema);
+    }
+
+    .aplicacion {
+        max-width: 1040px;
+        /* antes 264px, pensado para una barra lateral siempre expandida
+           de 240px + margen. Ahora la barra por defecto es angosta
+           (solo íconos, ver .navegacion-inferior), así que el contenido
+           puede arrancar mucho antes; cuando el mouse pasa por encima
+           de la barra, esta se expande y queda flotando ENCIMA del
+           contenido (position:fixed + z-index), sin empujarlo. */
+        margin-left: 168px;
+        margin-right: auto;
+        background: transparent;
+        box-shadow: none;
+        min-height: 0;
+        padding-bottom: 40px;
+    }
+
+    .encabezado {
+        padding-top: 32px;
+    }
+
+    /* El buscador tiene que medir lo mismo que el banner de abajo (la
+       columna izquierda de .home-franja-superior, que usa fr 1.6/2.6
+       sobre el ancho disponible menos el gap de 28px). Antes tenía un
+       max-width fijo (620px) que no tenía relación con ese cálculo, así
+       que a partir de cierto ancho de pantalla quedaban desalineados.
+       Con este calc(), el buscador siempre termina exactamente donde
+       termina el banner, sea cual sea el ancho de .aplicacion. */
+    .buscador {
+        max-width: calc((100% - 68px) * 1.6 / 2.6);
+    }
+
+    .destacado__tarjeta--carrusel {
+        height: 340px;
+    }
+
+    .destacado__imagen {
+        min-height: 340px;
+    }
+
+    /* Categorías en escritorio: en celular/tablet son un ícono grande
+       arriba y el texto abajo, apiladas; acá eso se ve muy "app
+       chica" en una pantalla grande. Se rediseñan como chips
+       horizontales (ícono chico + texto al lado, en una píldora),
+       formato típico de filtros en web, todavía en una sola fila. */
+    .categorias__lista {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 12px;
+    }
+
+    .categoria {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        gap: 10px;
+        background: var(--chip-bg);
+        border-radius: 999px;
+        padding: 8px 20px 8px 8px;
+        font-size: 13.5px;
+        font-weight: 600;
+    }
+
+    .categoria__icono {
+        width: 34px;
+        height: 34px;
+        padding: 8px;
+        border-radius: 50%;
+        background: #FFFFFF;
+    }
+
+    .categoria:hover {
+        background: rgba(63, 107, 59, 0.14);
+    }
+
+    /* Activa: toda la píldora en verde clarito (no solo el ícono como
+       en celular), para que se note de lejos cuál filtro está puesto. */
+    .categoria--activa {
+        background: rgba(63, 107, 59, 0.16);
+    }
+
+    .categoria--activa .categoria__icono {
+        background: var(--verde);
+        color: #FFFFFF;
+    }
+
+    /* Catálogo y rieles de libros: portadas un poco más chicas que
+       antes (se acomodan solas según el espacio disponible, así que
+       bajar el mínimo simplemente hace que entren más columnas y cada
+       portada ocupe menos lugar). */
+    .catalogo__grid {
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        gap: 24px;
+    }
+
+    .libros__lista {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+        gap: 22px;
+    }
+
+    .seccion__encabezado h2 {
+        font-size: 20px;
+    }
+
+    .libro__titulo {
+        font-size: 15px;
+    }
+
+    .libro__autor {
+        font-size: 12px;
+    }
+
+    .boton-detalle {
+        padding: 12px 0;
+        font-size: 13px;
+    }
+
+    /* ----------------------------------------------------------------
+       Home más "horizontal": en vez de 4 secciones apiladas de punta a
+       punta de la pantalla (banner, categorías, recomendados, nuevos
+       ingresos), en escritorio se agrupan de a pares que comparten
+       una misma franja, aprovechando el ancho real en vez de dejarlo
+       vacío a los costados de una columna angosta.
+       ---------------------------------------------------------------- */
+
+    /* Banner + categorías: el banner es alto (340px) y las categorías
+       son angostas, así que entran cómodas al lado en vez de abajo.
+       align-items: start (NO stretch) es la parte importante: con
+       stretch el banner se agrandaba a lo alto para igualar la
+       columna de categorías y terminaba angosto y vertical en vez de
+       ancho. Con start, cada columna conserva su alto natural. */
+    .home-franja-superior {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        column-gap: 28px;
+        align-items: start;
+        padding: 0 20px;
+    }
+
+    .home-franja-superior .destacado,
+    .home-franja-superior .categorias {
+        padding: 18px 0 0;
+    }
+
+    /* Categorías al lado del banner: ya no caben en una sola fila
+       horizontal angosta, así que se acomodan en una columna propia,
+       todavía como píldoras (mismo estilo que .categoria de más
+       arriba), con su alto natural (no estirado a la fuerza). */
+    .home-franja-superior .categorias__lista {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .home-franja-superior .categoria {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Recomendados + Nuevos ingresos: dos columnas lado a lado en vez
+       de dos secciones apiladas, cada una con su propia grilla más
+       angosta (2 columnas en vez de 3-4). */
+    .home-franja-libros {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
+    }
+
+    .home-franja-libros .libros__lista {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Navegación: barra lateral fija, colapsada por defecto (solo
+       íconos, como el menú de Instagram en escritorio) y que se
+       despliega mostrando las etiquetas al pasar el mouse por encima.
+       overflow:hidden recorta la etiqueta mientras está angosta, y al
+       agrandar el ancho en :hover la etiqueta vuelve a quedar visible
+       (si el HTML algún día envuelve el texto en
+       .navegacion-inferior__item-label, además aparece con un fundido
+       suave gracias a la regla de opacity de más abajo; si no, igual
+       funciona por el recorte del overflow). z-index alto porque al
+       expandirse queda flotando ENCIMA del contenido, sin empujarlo
+       (el contenido ya arranca con el margen de la barra angosta). */
+    .navegacion-inferior {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: auto;
+        bottom: 0;
+        width: 96px;
+        max-width: none;
+        margin: 0;
+        background: #FFFFFF;
+        border-top: none;
+        border-right: 1px solid var(--linea);
+        box-shadow: none;
+        border-radius: 0;
+        display: flex;
+        align-items: stretch;
+        padding: 32px 16px;
+        overflow: hidden;
+        z-index: 50;
+        transition: width 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .navegacion-inferior:hover,
+    .navegacion-inferior:focus-within {
+        width: 260px;
+        box-shadow: 4px 0 20px rgba(27, 27, 24, 0.1);
+    }
+
+    /* Los 4 ítems ya no quedan apilados arriba del todo: se centran a
+       lo largo de toda la altura de la barra, con más aire entre
+       ellos, para que no se vean amontonados en una pantalla de
+       1920×1080 (mucho más alta que un celular). */
+    .navegacion-inferior ul {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        gap: 28px;
+        width: 228px;
+        /* ancho fijo = el de la barra expandida (menos padding): así
+           las etiquetas no se reacomodan ni se envuelven mientras la
+           barra está angosta, simplemente quedan tapadas por el
+           overflow:hidden de arriba hasta que se expande. */
+        padding: 0;
+    }
+
+    .navegacion-inferior li {
+        width: 100%;
+    }
+
+    .navegacion-inferior__item {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        /* Más padding a la izquierda que a la derecha: corre el ícono
+           levemente hacia la derecha en vez de pegarlo al borde de la
+           barra, para que la fila se sienta más equilibrada. */
+        padding: 14px 16px 14px 26px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .navegacion-inferior__item svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    /* El label de cada ítem es un <span> suelto (sin clase propia) en
+       nav-inferior.php. Se apunta directo a ese <span> para que el
+       texto aparezca con un fundido al expandir la barra, en vez de
+       revelarse de golpe recortado por el ancho. */
+    .navegacion-inferior__item span {
+        opacity: 0;
+        transition: opacity 0.12s ease;
+    }
+
+    .navegacion-inferior:hover .navegacion-inferior__item span,
+    .navegacion-inferior:focus-within .navegacion-inferior__item span {
+        opacity: 1;
+        transition-delay: 0.1s;
+        /* espera a que la barra termine de ensancharse antes de
+           mostrar el texto, para que no aparezca recortado a medio
+           camino de la animación */
+    }
+
+    .navegacion-inferior__item:hover {
+        background: var(--chip-bg);
+    }
+
+    /* Antes el ítem activo tenía un recuadro verde de fondo. A pedido,
+       ahora la única marca de "sección activa" es el color: tanto el
+       ícono como el texto se pintan de verde, sin ningún fondo. */
+    .navegacion-inferior__item--activo {
+        background: transparent;
+        color: var(--verde);
+    }
+
+    /* El "salto" al activarse tiene sentido en celular (ícono solo,
+       feedback rápido); acá, con etiqueta al lado, lo cambiamos por
+       un leve agrandado sin desplazamiento vertical. */
+    .navegacion-inferior__item--activo svg {
+        transform: scale(1.08);
+    }
+}
+
+/* ==========================================================================
+   ESCRITORIO GRANDE (1440px en adelante, pensado sobre todo para
+   1920×1080). El breakpoint de 1024px de arriba ya resuelve la
+   estructura general (barra lateral, grillas, etc.); acá solo se
+   agranda el "techo" de ancho y algunos elementos puntuales para que
+   la página aproveche una pantalla grande en vez de quedar como una
+   columna angosta centrada con mucho vacío a los costados.
+   ========================================================================== */
+@media (min-width: 1440px) {
+    .aplicacion {
+        max-width: 1600px;
+        margin-left: 190px;
+    }
+
+    .encabezado {
+        padding-top: 44px;
+    }
+
+    /* El max-width ya lo resuelve la fórmula del breakpoint de 1024px
+       (escala sola con el ancho de .aplicacion), así que acá solo
+       agrandamos un poco el campo en sí. */
+    .buscador {
+        padding: 14px 18px;
+        font-size: 15px;
+    }
+
+    .destacado__tarjeta--carrusel {
+        height: 420px;
+    }
+
+    .destacado__imagen {
+        min-height: 420px;
+    }
+
+    .destacado__texto h1 {
+        font-size: 28px;
+    }
+
+    .seccion__encabezado h2 {
+        font-size: 22px;
+    }
+
+    .catalogo__grid {
+        grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+        gap: 32px;
+    }
+
+    .libros__lista {
+        grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+        gap: 30px;
+    }
+
+    .home-franja-libros .libros__lista {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ==========================================================================
+   Pantallas angostas (celulares chicos, ~360px o menos: Android de
+   gama baja, iPhone SE en modo "zoom", etc.). Sin esto, con 430px de
+   base fijo, el catálogo y las fichas técnicas quedaban muy apretados
+   o el texto se cortaba en dos líneas feas.
+   ========================================================================== */
+@media (max-width: 360px) {
+    .catalogo__grid {
+        gap: 12px 8px;
+    }
+
+    .libro__titulo {
+        font-size: 12px;
+    }
+
+    .detalle-libro__ficha {
+        gap: 6px;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .ficha-dato {
+        padding: 10px 6px;
+    }
+
+    .meta-chip {
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+
+    .categoria {
+        width: 62px;
+    }
+
+    .categoria__icono {
+        width: 48px;
+        height: 48px;
+        padding: 14px;
+    }
+}
+
+/* ==========================================================================
+   iPhone 14 Pro Max (430 × 932 CSS px) y equipos con el mismo ancho
+   lógico. A este ancho la app ya se ve borde a borde (ver .aplicacion),
+   así que acá solo afinamos detalles propios de su pantalla alta y su
+   recorte superior (Dynamic Island): más aire arriba del todo y un
+   banner destacado un poco más alto, ya que sobra espacio vertical.
+   ========================================================================== */
+@media (min-width: 415px) and (max-width: 430px) and (min-height: 850px) {
+    .destacado__tarjeta--carrusel {
+        height: 210px;
+    }
+
+    .destacado__imagen {
+        min-height: 190px;
+    }
+}
+
+/* Modo horizontal en pantallas bajas (el iPhone 14 Pro Max girado, o
+   cualquier celular en horizontal): 100dvh da muy poca altura para un
+   layout pensado en vertical. Dejamos que las pantallas de "app fija"
+   (detalle, perfil, login) puedan crecer más allá de la pantalla y
+   scrollear entero como red de seguridad, en vez de aplastar todo. */
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .aplicacion--detalle,
+    .aplicacion--perfil,
+    .aplicacion--auth {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+    }
+}
